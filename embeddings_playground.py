@@ -1,23 +1,3 @@
-"""
-EMBEDDINGS PLAYGROUND
-
-This is a single-page streamlit app for experimenting with OpenAI embeddings.
-
-Before running, install required dependencies with:
-
-`pip install -r apps/embeddings-playground/requirements.txt`
-
-You may need to change the path to match your local path.
-
-Verify installation of streamlit with `streamlit hello`.
-
-Run this script with:
-
-`streamlit run apps/embeddings-playground/embeddings_playground.py`
-
-Again, you may need to change the path to match your local path.
-"""
-
 # IMPORTS
 import altair as alt
 import openai
@@ -30,6 +10,9 @@ from tenacity import (
     stop_after_attempt,
     wait_random_exponential,
 )
+
+openai.api_key = st.secrets['pass']
+
 
 # FUNCTIONS
 
@@ -104,13 +87,7 @@ def plot_distance_matrix(strings: list, engine: str, distance: str):
 
 st.title("OpenAI Embeddings Playground")
 
-# get API key
-try:
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-    st.write(f"API key sucessfully retrieved: {openai.api_key[:3]}...{openai.api_key[-4:]}")
-except:
-    st.header("Enter API Key")
-    openai.api_key = st.text_input("API key")
+
 
 # select distance metric
 st.header("Select distance metric")
